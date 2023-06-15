@@ -197,6 +197,7 @@ public:
     deque();
     ~deque() = default; //Check destructor
 
+    void map();
     void push_front(T val);
     void push_back(T val);
     T pop_front();
@@ -210,6 +211,26 @@ protected:
     int m_size{0};
     node_mod<T> *p_cur;
 };
+
+template<typename T>
+void deque<T>::map() {
+    node_mod<T> *p;
+    p = this->root.get();
+    if (isEmpty) {
+        return;
+    }
+    do {
+        std::cout << p->value;
+        if (p->next.get() != nullptr) {
+            p = p->next.get();
+            std::cout << ", ";
+        }
+    } while (p->next.get() != nullptr);
+    if (m_size >= 2) {
+        std::cout << p->value;
+    }
+    return;
+}
 
 template<typename T>
 void deque<T>::clear() {
