@@ -5,19 +5,31 @@
 #include <iostream>
 
 template<typename T>
+/*!
+ * Нода, использующаяся как хранилище для классов stack и queue
+ * @tparam T Тип элементов в контейнере
+ */
 struct node {
     T value;
     std::unique_ptr<node> next = nullptr;
 
     node();
     explicit node(T temp) : value(temp) {}
-    ~node() = default;    //Check destructor
+    ~node() = default;
 };
 
 template<typename T>
+/*!
+ * Конструктор node'а
+ * @tparam T Тип элементов в контейнере
+ */
 node<T>::node() = default;
 
 template<typename T>
+/*!
+ * Абстрактный тип данных, представляющий собой список элементов, организованных по принципу LIFO
+ * @tparam T Тип элементов в контейнере
+ */
 class stack {
 public:
     bool isEmpty{true};
@@ -39,6 +51,10 @@ protected:
 };
 
 template<typename T>
+/*!
+ * Выводит стек в консоль
+ * @tparam Т Тип элементов в контейнере
+ */
 void stack<T>::map() {
     node<T> *p;
     p = this->root.get();
@@ -59,6 +75,10 @@ void stack<T>::map() {
 }
 
 template<typename T>
+/*!
+ * Очищает все существеющие элементы контейнера
+ * @tparam T Тип элементов в контейнере
+ */
 void stack<T>::clear() {
     while (!isEmpty) {
         this->pop();
@@ -66,6 +86,10 @@ void stack<T>::clear() {
 }
 
 template<typename T>
+/*!
+ * @tparam T Тип элементов в контейнере
+ * @return Вывод - значение последнего внесённого в контейнер элемента, без его непосредственного удаления
+ */
 T stack<T>::check() {
     T res;
     if (isEmpty) {
@@ -76,11 +100,19 @@ T stack<T>::check() {
 }
 
 template<typename T>
+/*!
+ * @tparam T Тип элементов в контейнере
+ * @return Вывод - кол-во элементов в контейнере
+ */
 int stack<T>::size() {
     return m_size;
 }
 
 template<typename T>
+/*!
+ * @tparam T Тип элементов в контейнере
+ * @return Вывод - значение последнего занесённого элемента, причём элемент удаляется
+ */
 T stack<T>::pop() {
     if (isEmpty) {
         exit(1);
@@ -97,6 +129,10 @@ T stack<T>::pop() {
 }
 
 template<typename T>
+/*!
+ * @tparam T Тип элементов в контейнере
+ * @param val Значение элемента помещаемого в контейнер
+ */
 void stack<T>::push(T val) {
     if (isEmpty) {
         std::unique_ptr<node<T>> temp(new node<T>);
@@ -117,12 +153,24 @@ void stack<T>::push(T val) {
 }
 
 template<typename T>
+/*!
+ * Конструктор stack'а
+ * @tparam T Тип элементов в контейнере
+ */
 stack<T>::stack() {
     m_size = 0;
     isEmpty = true;
 }
 
 template<typename T>
+/*!
+ * Абстрактный тип данных с дисциплиной доступа к элементам «первый пришёл - первый вышел».
+ * Добавление элемента возможно лишь в конец очереди, выборка - только из начала очереди, при этом выбранный элемент из очереди удаляется.
+ *
+ * Ребёнок stack'а
+ *
+ * @tparam T Тип элементов в контейнере
+ */
 class queue: public stack<T> {
 public:
     queue();
@@ -135,6 +183,10 @@ protected:
 };
 
 template<typename T>
+/*!
+ * @tparam T Тип элементов в контейнере
+ * @return Вывод - значение первого внесённого в контейнер элемента, без его непосредственного удаления
+ */
 T queue<T>::check_other_side() {
     if (this->isEmpty) {
         exit(1);
@@ -142,6 +194,10 @@ T queue<T>::check_other_side() {
 }
 
 template<typename T>
+/*!
+ * Очищает все существеющие элементы контейнера
+ * @tparam T Тип элементов в контейнере
+ */
 void queue<T>::clear() {
     stack<T>::clear();
     p_cur = nullptr;
@@ -149,6 +205,11 @@ void queue<T>::clear() {
 }
 
 template<typename T>
+/*!
+ * Переписанный для очереди push
+ * @tparam T Тип элементов в контейнере
+ * @param val Значение элемента помещаемого в контейнер
+ */
 void queue<T>::push(T val) {
     if (this->isEmpty) {
         std::unique_ptr<node<T>> temp(new node<T>);
@@ -169,6 +230,10 @@ void queue<T>::push(T val) {
 }
 
 template<typename T>
+/*!
+ * Конструктор queue
+ * @tparam T Тип элементов в контейнере
+ */
 queue<T>::queue() {
     this->m_size = 0;
     this->isEmpty = true;
@@ -176,6 +241,10 @@ queue<T>::queue() {
 }
 
 template<typename T>
+/*!
+ * Улучшенная специаоьно для класса deque нода
+ * @tparam T Тип элементов в контейнере
+ */
 struct node_mod {
     node_mod *prev = nullptr;
     T value;
@@ -187,9 +256,17 @@ struct node_mod {
 };
 
 template<typename T>
+/*!
+ * Конструктор node_mod
+ * @tparam T Тип элементов в контейнере
+ */
 node_mod<T>::node_mod() = default;
 
 template<typename T>
+/*!
+ * Абстрактный тип данных, в котором элементы можно добавлять и удалять как в начало, так и в конец
+ * @tparam T Тип элементов в контейнере
+ */
 class deque {
 public:
     bool isEmpty{true};
@@ -213,6 +290,10 @@ protected:
 };
 
 template<typename T>
+/*!
+ * Выводит дек в консоль
+ * @tparam Т Тип элементов в контейнере
+ */
 void deque<T>::map() {
     node_mod<T> *p;
     p = this->root.get();
@@ -233,6 +314,10 @@ void deque<T>::map() {
 }
 
 template<typename T>
+/*!
+ * Очищает все элементы контейнера
+ * @tparam T Тип элементов в контейнере
+ */
 void deque<T>::clear() {
     while (!isEmpty) {
         this->pop_front();
@@ -240,6 +325,11 @@ void deque<T>::clear() {
 }
 
 template<typename T>
+/*!
+ * Достаёт эелемент со спины
+ * @tparam T Тип элементов в контейнере
+ * @return Вывод - значение элемента сзади, причём элемент удаляется
+ */
 T deque<T>::pop_back() {
     if (isEmpty) {
         exit(1);
@@ -263,6 +353,11 @@ T deque<T>::pop_back() {
 }
 
 template<typename T>
+/*!
+ * Достаёт елемент спереди
+ * @tparam T Тип элементов в контейнере
+ * @return Вывод - значение элемента спереди, причём элемент удаляется
+ */
 T deque<T>::pop_front() {
     if (isEmpty) {
         exit(1);
@@ -283,21 +378,38 @@ T deque<T>::pop_front() {
 }
 
 template<typename T>
+/*!
+ * @tparam T Тип элементов в контейнере
+ * @return Вывод - значение сзади, элемент остаётся в контейнере
+ */
 T deque<T>::back() {
     return root->value;
 }
 
 template<typename T>
+/*!
+ * @tparam T Тип элементов в контейнере
+ * @return Вывод - значение спереди, элемент остаётся в контейнере
+ */
 T deque<T>::front() {
     return p_cur->value;
 }
 
 template<typename T>
+/*!
+ * @tparam T Тип элементов в контейнере
+ * @return Вывод - количество элементов в контейнере
+ */
 int deque<T>::size() {
     return m_size;
 }
 
 template<typename T>
+/*!
+ * Вносит новый элемент в спину контейнера
+ * @tparam T Тип элементов в контейнере
+ * @param val Значение элемента
+ */
 void deque<T>::push_back(T val) {
     if (isEmpty) {
         std::unique_ptr<node_mod<T>> temp(new node_mod<T>);
@@ -319,6 +431,11 @@ void deque<T>::push_back(T val) {
 }
 
 template<typename T>
+/*!
+ * Вносит новый элемент в лицо контейнера
+ * @tparam T Тип элементов в контейнере
+ * @param val Значение элемента
+ */
 void deque<T>::push_front(T val) {
     if (isEmpty) {
         std::unique_ptr<node_mod<T>> temp(new node_mod<T>);
@@ -340,6 +457,10 @@ void deque<T>::push_front(T val) {
 }
 
 template<typename T>
+/*!
+ * Конструктор deque
+ * @tparam T Тип элементов в контейнере
+ */
 deque<T>::deque() {
     this->m_size = 0;
     this->isEmpty = true;

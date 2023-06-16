@@ -8,6 +8,10 @@ int queue_f();
 int deque_f();
 
 template<typename T>
+/*!
+ * Выбор типа значений, для deque
+ * @tparam T Тип значений
+ */
 int deque_int() {
     deque<T> my_stack;
     int var;
@@ -49,6 +53,10 @@ int deque_int() {
 }
 
 template<typename T>
+/*!
+ * Выбор типа значений, для stack
+ * @tparam T Тип значений
+ */
 int stack_int() {
     stack<T> my_stack;
     int var;
@@ -81,6 +89,10 @@ int stack_int() {
 }
 
 template<typename T>
+/*!
+ * Выбор типа значений, для queue
+ * @tparam T Тип значений
+ */
 int queue_int() {
     queue<T> my_stack;
     int var;
@@ -133,6 +145,9 @@ int main() {
     }
 }
 
+/*!
+ * Главное меню
+ */
 int main_menu() {
     int var;
     std::cout << "Choose container:" << std::endl << "1.Stack" << std::endl << "2.Queue" << std::endl << "3.Deque" << std::endl << "0.Exit" << std::endl;
@@ -142,6 +157,9 @@ int main_menu() {
     return var;
 }
 
+/*!
+ * Управление stack'ом
+ */
 int stack_f() {
     system("cls");
     int temp;
@@ -171,6 +189,9 @@ int stack_f() {
     }
 }
 
+/*!
+ * Управление очередью
+ */
 int queue_f() {
     system("cls");
     int temp;
@@ -200,6 +221,9 @@ int queue_f() {
     }
 }
 
+/*!
+ * Управление деком
+ */
 int deque_f() {
     system("cls");
     int temp;
